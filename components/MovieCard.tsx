@@ -6,8 +6,6 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 type Props = Movie;
 
 const MovieCard: FC<Props> = ({ id, poster_path, title, vote_average, release_date }) => {
-	console.log("poster_path:", poster_path);
-
 	return (
 		<Link asChild href={`/movies/${id}`}>
 			<TouchableOpacity className="w-[30%]">

@@ -14,7 +14,6 @@ function useFetch<T>({ autoFetch = true, fetchFunc }: Props<T>) {
 		setLoading(true);
 		setError(null);
 
-
 		try {
 			const result = await fetchFunc();
 			setData(result);
@@ -36,14 +35,13 @@ function useFetch<T>({ autoFetch = true, fetchFunc }: Props<T>) {
 	};
 
 	useEffect(() => {
-
 		if (autoFetch) {
 			fetchData();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return { loading, data, error, loadMovies: fetchData, reset };
+	return { loading, data: data || [], error, loadMovies: fetchData, reset };
 }
 
 export { useFetch };
