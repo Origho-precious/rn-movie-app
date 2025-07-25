@@ -40,7 +40,7 @@ const fetchMovieDetails = async (movieId: string): Promise<MovieDetails> => {
 		}
 
 		const data = await res.json();
-		return data;
+		return data as MovieDetails;
 	} catch (error) {
 		console.log("Error fetching movie details:", error);
 		throw error;

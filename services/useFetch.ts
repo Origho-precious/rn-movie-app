@@ -41,7 +41,7 @@ function useFetch<T>({ autoFetch = true, fetchFunc }: Props<T>) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return { loading, data: data || [], error, loadMovies: fetchData, reset };
+	return { loading, data, error, loadMovies: fetchData, reset };
 }
 
 export { useFetch };
