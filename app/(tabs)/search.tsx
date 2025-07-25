@@ -38,7 +38,7 @@ const SearchScreen = () => {
 	}, [searchQuery]);
 
 	useEffect(() => {
-		if (movies.length > 0 && movies[0]) {
+		if (movies?.length! > 0 && movies?.[0]) {
 			updateSearchCount(searchQuery, movies[0]);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
