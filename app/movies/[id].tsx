@@ -25,7 +25,7 @@ const Details = () => {
 
 	const res = useFetch({ fetchFunc: () => fetchMovieDetails(id as string) });
 
-  const { data: movie, loading }  = res;
+	const { data: movie, loading } = res;
 
 	if (loading)
 		return (

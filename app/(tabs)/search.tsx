@@ -50,7 +50,6 @@ const SearchScreen = () => {
 			<FlatList
 				data={movies}
 				numColumns={3}
-				scrollEnabled={false}
 				className="mt-2 pb-32"
 				keyExtractor={(item) => item?.id?.toString()}
 				contentContainerStyle={{ paddingBottom: 100 }}
