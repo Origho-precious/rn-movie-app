@@ -6,9 +6,10 @@ import { updateSavedMovieList } from "../services/appwrite";
 
 export const useSaveMovie = () => {
 	const authStore = useAuthStore();
-	const { saveMovie: saveToStore, unsaveMovie: removeFromStore } = useSavedMoviesStore();
 	const [loading, setLoading] = useState(false);
 	const [showAuthModal, setShowAuthModal] = useState(false);
+
+	const { saveMovie: saveToStore, unsaveMovie: removeFromStore } = useSavedMoviesStore();
 
 	const saveMovie = async (movie: Movie) => {
 		// Check if user is authenticated
@@ -16,7 +17,6 @@ export const useSaveMovie = () => {
 			setShowAuthModal(true);
 			return;
 		}
-
 
 		setLoading(true);
 		try {
