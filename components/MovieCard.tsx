@@ -1,6 +1,5 @@
 import { icons } from "@/constants/icons";
 import { useSaveMovie } from "@/hooks/useSaveMovie";
-import { useAuthStore } from "@/store/authStore";
 import { Link } from "expo-router";
 import React, { FC, useState } from "react";
 import { ActivityIndicator, Image, Text, TouchableOpacity, View } from "react-native";
@@ -9,7 +8,6 @@ import AuthModal from "./AuthModal";
 type Props = Movie;
 
 const MovieCard: FC<Props> = (movieProps) => {
-	const authStore = useAuthStore();
 	const [isSaved, setIsSaved] = useState(false);
 
 	const { id, poster_path, title, vote_average, release_date } = movieProps;
@@ -19,12 +17,10 @@ const MovieCard: FC<Props> = (movieProps) => {
 	const movie = movieProps;
 
 	const handleSavePress = async () => {
-
-		console.log("authStore:", authStore);
-		// const result = await saveMovie(movie);
-		// if (result) {
-		// 	setIsSaved(result.action === "saved");
-		// }
+		const result = await saveMovie(movie);
+		if (result) {
+			setIsSaved(result.action === "saved");
+		}
 	};
 
 	return (
