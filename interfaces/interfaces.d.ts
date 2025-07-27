@@ -15,6 +15,14 @@ interface Movie {
   vote_count: number;
 }
 
+
+interface SavedMovie {
+  title: string;
+	user_id: number;
+	movie_id: number;
+	poster_url: string;
+}
+
 interface TrendingMovie {
   searchTerm: string;
   movie_id: number;
@@ -74,4 +82,47 @@ interface MovieDetails {
 interface TrendingCardProps {
   movie: TrendingMovie;
   index: number;
+}
+
+
+// AUTH
+interface IUser {
+	$id: string;
+	name: string;
+	hash: string;
+	mfa: boolean;
+	email: string;
+	phone: string;
+	status: boolean;
+	labels: string[];
+	password: string;
+	targets: Target[];
+	$createdAt: string;
+	$updatedAt: string;
+	accessedAt: string;
+	registration: string;
+	passwordUpdate: string;
+	hashOptions: HashOptions;
+	emailVerification: boolean;
+	phoneVerification: boolean;
+	prefs: Record<string, unknown>;
+}
+
+interface HashOptions {
+	type: string; // e.g., 'argon2'
+	threads: number;
+	timeCost: number;
+	memoryCost: number;
+}
+
+interface Target {
+	$id: string;
+	name: string;
+	userId: string;
+	expired: boolean;
+	providerId: string;
+	$createdAt: string;
+	$updatedAt: string;
+	identifier: string;
+	providerType: string; // e.g., 'email'
 }
