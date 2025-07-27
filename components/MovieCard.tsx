@@ -1,26 +1,24 @@
 import { icons } from "@/constants/icons";
 import { useSaveMovie } from "@/hooks/useSaveMovie";
+import { useSavedMoviesStore } from "@/store/savedMoviesStore";
 import { Link } from "expo-router";
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { ActivityIndicator, Image, Text, TouchableOpacity, View } from "react-native";
 import AuthModal from "./AuthModal";
 
 type Props = Movie;
 
 const MovieCard: FC<Props> = (movieProps) => {
-	const [isSaved, setIsSaved] = useState(false);
-
 	const { id, poster_path, title, vote_average, release_date } = movieProps;
 
+	const { isMovieSaved } = useSavedMoviesStore();
 	const { loading, showAuthModal, saveMovie, closeAuthModal, onAuthSuccess } = useSaveMovie();
 
 	const movie = movieProps;
+	const isSaved = isMovieSaved(id);
 
 	const handleSavePress = async () => {
-		const result = await saveMovie(movie);
-		if (result) {
-			setIsSaved(result.action === "saved");
-		}
+		await saveMovie(movie);
 	};
 
 	return (
@@ -57,7 +55,7 @@ const MovieCard: FC<Props> = (movieProps) => {
 							{loading ? (
 								<ActivityIndicator size="small" color="white" />
 							) : (
-								<Image source={isSaved ? icons.saved : icons.save} className="size-6" />
+								<Image source={isSaved ? icons.saved : icons.save} className={isSaved ? "size-8" : "size-6"} />
 							)}
 						</TouchableOpacity>
 					</View>
