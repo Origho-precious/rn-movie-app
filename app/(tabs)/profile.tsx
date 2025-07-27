@@ -73,15 +73,10 @@ const ProfileScreen = () => {
 		<SafeAreaView className="bg-primary flex-1 px-6">
 			<View className="flex-1">
 				<View className="py-6">
-					<Text className="text-white text-2xl font-bold">Profile</Text>
+					<Text className="text-white text-2xl font-bold">Your Profile</Text>
 				</View>
 
 				<View className="bg-dark-200 rounded-xl p-6 mb-6">
-					<View className="items-center mb-6">
-						<Image source={icons.person} className="size-20 mb-4" />
-						<Text className="text-white text-xl font-bold">{authStore.name || "User"}</Text>
-					</View>
-
 					<View className="space-y-4">
 						<View className="bg-dark-300 p-4 rounded-lg">
 							<Text className="text-gray-400 text-sm font-medium mb-1">Full Name</Text>
