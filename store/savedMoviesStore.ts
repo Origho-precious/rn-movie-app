@@ -18,8 +18,8 @@ interface SavedMoviesState {
 export const useSavedMoviesStore = create<SavedMoviesState>()(
 	persist(
 		(set, get) => ({
-			savedMovies: [],
 			loading: false,
+			savedMovies: [],
 
 			saveMovie: (movie: Movie) => {
 				const { savedMovies } = get();
