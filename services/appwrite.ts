@@ -53,8 +53,8 @@ const getTrendingMovies = async (): Promise<TrendingMovie[]> => {
 const userSignUp = async (email: string, password: string, name: string) => {
 	try {
 		const result = await account.create(ID.unique(), email, password, name);
-		
-		console.log("result:", result);
+
+		// console.log("result:", result);
 
 		const authStore = useAuthStore.getState();
 		await authStore.signIn({
@@ -74,7 +74,6 @@ const userSignUp = async (email: string, password: string, name: string) => {
 
 const userSignIn = async (email: string, password: string) => {
 	try {
-		const session = await account.createEmailPasswordSession(email, password);
 		const user = await account.get();
 
 		const authStore = useAuthStore.getState();
@@ -120,7 +119,7 @@ const getSavedMovies = async () => {
 		const userId = authStore.id;
 
 		if (!userId) {
-			throw new Error("User not authenticated");
+			return [];
 		}
 
 		const result = await database.listDocuments(DATABASE_ID, SAVED_MOVIES_COLLECTION_ID, [
@@ -155,10 +154,12 @@ const updateSavedMovieList = async (movie: Movie) => {
 			return { action: "removed", movie };
 		} else {
 			await database.createDocument(DATABASE_ID, SAVED_MOVIES_COLLECTION_ID, ID.unique(), {
-				movie_id: movie.id,
 				user_id: userId,
+				movie_id: movie.id,
 				title: movie.title,
-				poster_url: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+				poster_url: movie.poster_path
+					? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+					: "https://placehold.co/600x400/1a1a1a/FFFFFF.png",
 			});
 			return { action: "saved", movie };
 		}
@@ -176,6 +177,5 @@ export {
 	updateSearchCount,
 	userSignIn,
 	userSignOut,
-	userSignUp
+	userSignUp,
 };
-
