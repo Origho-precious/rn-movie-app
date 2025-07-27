@@ -74,6 +74,8 @@ const userSignUp = async (email: string, password: string, name: string) => {
 
 const userSignIn = async (email: string, password: string) => {
 	try {
+		await account.createEmailPasswordSession(email, password);
+		
 		const user = await account.get();
 
 		const authStore = useAuthStore.getState();
@@ -177,5 +179,6 @@ export {
 	updateSearchCount,
 	userSignIn,
 	userSignOut,
-	userSignUp,
+	userSignUp
 };
+
