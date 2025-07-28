@@ -6,6 +6,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "@/constants/icons";
 import { fetchMovieDetails } from "@/services/api";
 import { useFetch } from "@/services/useFetch";
+import { useSaveMovie } from "@/hooks/useSaveMovie";
+import { useSavedMoviesStore } from "@/store/savedMoviesStore";
+import AuthModal from "@/components/AuthModal";
 
 interface MovieInfoProps {
 	label: string;
@@ -24,8 +27,18 @@ const Details = () => {
 	const { id } = useLocalSearchParams();
 
 	const res = useFetch({ fetchFunc: () => fetchMovieDetails(id as string) });
+	const { isMovieSaved } = useSavedMoviesStore();
+	const { loading: saveLoading, showAuthModal, saveMovie, closeAuthModal, onAuthSuccess } = useSaveMovie();
 
 	const { data: movie, loading } = res;
+
+	const isSaved = movie ? isMovieSaved(movie.id) : false;
+
+	const handleSavePress = async () => {
+		if (movie) {
+			await saveMovie(movie as unknown as Movie);
+		}
+	};
 
 	if (loading)
 		return (
@@ -46,9 +59,19 @@ const Details = () => {
 						resizeMode="stretch"
 					/>
 
-					<TouchableOpacity className="absolute bottom-5 right-5 rounded-full size-14 bg-white flex items-center justify-center">
-						<Image source={icons.play} className="w-6 h-7 ml-1" resizeMode="stretch" />
-					</TouchableOpacity>
+					<View className="absolute bottom-5 right-5 flex-row gap-3">
+						<TouchableOpacity
+							onPress={handleSavePress}
+							disabled={saveLoading}
+							className="rounded-full size-14 bg-black/50 flex items-center justify-center"
+						>
+							{saveLoading ? (
+								<ActivityIndicator size="small" color="white" />
+							) : (
+								<Image source={isSaved ? icons.saved : icons.save} className={isSaved ? "size-8" : "size-6"} />
+							)}
+						</TouchableOpacity>
+					</View>
 				</View>
 
 				<View className="flex-col items-start justify-center mt-5 px-5">
@@ -82,12 +105,14 @@ const Details = () => {
 			</ScrollView>
 
 			<TouchableOpacity
-				className="absolute bottom-5 left-0 right-0 mx-5 bg-accent rounded-lg py-3.5 flex flex-row items-center justify-center z-50"
 				onPress={router.back}
+				className="absolute bottom-5 left-0 right-0 mx-5 bg-accent rounded-lg py-3.5 flex flex-row items-center justify-center z-50"
 			>
 				<Image source={icons.arrow} className="size-5 mr-1 mt-0.5 rotate-180" tintColor="#fff" />
 				<Text className="text-white font-semibold text-base">Go Back</Text>
 			</TouchableOpacity>
+
+			<AuthModal visible={showAuthModal} onClose={closeAuthModal} onSuccess={onAuthSuccess} />
 		</View>
 	);
 };
