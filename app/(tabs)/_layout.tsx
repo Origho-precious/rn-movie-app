@@ -16,7 +16,7 @@ const TabIcon: FC<{
 				className="w-full min-w-[112px] min-h-16 flex flex-row flex-1 items-center justify-center mt-4 rounded-full overflow-hidden"
 			>
 				<Image source={icon} tintColor="#151312" className="size-5" />
-				<Text className="text-secondary text-base font-semibold">{title}</Text>
+				<Text className="text-secondary text-base font-semibold ml-1">{title}</Text>
 			</ImageBackground>
 		);
 	}
