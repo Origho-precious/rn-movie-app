@@ -1,50 +1,141 @@
-# Welcome to your Expo app 👋
+# Movie Finder App 🎬
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native movie discovery app built with Expo, featuring user authentication, movie search, saved movies, and detailed movie information.
 
-## Get started
+## Features
 
-1. Install dependencies
+- 🔍 **Movie Search** - Search through 300+ movies with real-time results
+- 💾 **Save Movies** - Save movies to your personal collection
+- 🔐 **User Authentication** - Sign up and sign in with email/password
+- 📱 **Movie Details** - View comprehensive movie information
+- 📊 **Trending Movies** - Discover popular and trending films
+- 🌟 **Rating System** - See movie ratings and vote counts
 
+## Prerequisites
+
+Before running this project locally, you need to obtain API keys and configuration from the following services:
+
+### Required Services
+
+1. **TMDB (The Movie Database)** - For movie data
+   - Sign up at [https://www.themoviedb.org/](https://www.themoviedb.org/)
+   - Go to Settings → API → Create API Key
+   - You'll need both the API Key and Access Token
+
+2. **Appwrite** - For backend services (authentication, database)
+   - Sign up at [https://appwrite.io/](https://appwrite.io/)
+   - Create a new project
+   - Set up database with collections for metrics and saved movies
+   - Get your Project ID, Database ID, Collection IDs, and API Key
+
+## Environment Setup
+
+1. **Clone the repository**
    ```bash
-   npm install
+   git clone <repository-url>
+   cd rn-movie-app
    ```
 
-2. Start the app
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
+3. **Create environment file**
+   
+   Create a `.env` file in the root directory with the following variables:
+
+   ```env
+   # TMDB API Configuration
+   EXPO_PUBLIC_TMDB_API_KEY=your_tmdb_api_key_here
+   EXPO_PUBLIC_TMDB_ACCESS_TOKEN=your_tmdb_access_token_here
+
+   # Appwrite Configuration
+   EXPO_PUBLIC_APPWRITE_PROJECT_ID=your_appwrite_project_id
+   EXPO_PUBLIC_APPWRITE_DATABASE_ID=your_appwrite_database_id
+   EXPO_PUBLIC_APPWRITE_ENDPOINT=https://cloud.appwrite.io/v1
+   EXPO_PUBLIC_APPWRITE_METRIC_COLLECTION_ID=your_metrics_collection_id
+   EXPO_PUBLIC_APPWRITE_SAVED_MOVIES_COLLECTION_ID=your_saved_movies_collection_id
+   EXPO_PUBLIC_APPWRITE_API_KEY=your_appwrite_api_key
+   ```
+
+   **Where to get these values:**
+   
+   - **TMDB Values**: From your TMDB account dashboard → API section
+   - **Appwrite Project ID**: From your Appwrite project settings
+   - **Appwrite Database ID**: From your Appwrite database settings
+   - **Appwrite Collection IDs**: From your Appwrite database collections
+   - **Appwrite API Key**: From your Appwrite project settings → API Keys
+   - **Appwrite Endpoint**: Use the cloud endpoint or your self-hosted URL
+
+4. **Set up Appwrite Database**
+   
+   Create the following collections in your Appwrite database:
+   
+   - **Metrics Collection** - For tracking search analytics
+   - **Saved Movies Collection** - For storing user's saved movies
+   
+   Make sure to configure proper permissions for authenticated users.
+
+## Running the App
+
+1. **Start the development server**
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+2. **Run on your preferred platform**
+   - **iOS Simulator**: Press `i` in the terminal
+   - **Android Emulator**: Press `a` in the terminal
+   - **Physical Device**: Scan the QR code with Expo Go app
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Project Structure
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+├── app/                    # App screens and routing
+│   ├── (tabs)/            # Tab-based navigation screens
+│   └── movies/            # Movie detail screens
+├── components/            # Reusable UI components
+├── constants/             # App constants (icons, images, colors)
+├── hooks/                 # Custom React hooks
+├── interfaces/            # TypeScript type definitions
+├── services/              # API services and utilities
+├── store/                 # State management (Zustand)
+└── assets/                # Static assets (images, icons)
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Technologies Used
 
-## Learn more
+- **React Native** with **Expo**
+- **TypeScript** for type safety
+- **Expo Router** for navigation
+- **Zustand** for state management
+- **Appwrite** for backend services
+- **TMDB API** for movie data
+- **NativeWind** for styling
+- **AsyncStorage** for local persistence
 
-To learn more about developing your project with Expo, look at the following resources:
+## Development
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+This project uses [file-based routing](https://docs.expo.dev/router/introduction) with Expo Router. Start developing by editing files in the **app** directory.
 
-## Join the community
+## Learn More
 
-Join our community of developers creating universal apps.
+- [Expo documentation](https://docs.expo.dev/)
+- [React Native documentation](https://reactnative.dev/)
+- [TMDB API documentation](https://developers.themoviedb.org/)
+- [Appwrite documentation](https://appwrite.io/docs)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
